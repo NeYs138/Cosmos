@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Cosmos — Digital Experiences</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  background: #05010f;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Звёздный градиент */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(88,28,235,0.25), transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(236,72,153,0.15), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(6,182,212,0.15), transparent 60%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+/* Навигация */
+nav {
+  padding: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #a855f7, #ec4899, #06b6d4, #a855f7);
+  animation: spin 4s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+nav ul { display: flex; gap: 35px; list-style: none; }
+nav a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+nav a:hover { color: #fff; }
+
+/* Hero */
+.hero {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 0;
+}
+
+.orbit-badge {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeScale 1s cubic-bezier(0.16,1,0.3,1) backwards;
+}
+.orbit-badge .core {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #a855f7, #7c3aed);
+  box-shadow: 0 0 40px rgba(168,85,247,0.6), 0 0 80px rgba(168,85,247,0.3);
+  animation: glow 3s ease-in-out infinite;
+}
+.orbit-badge .ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  animation: spin 8s linear infinite;
+}
+.orbit-badge .ring::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: 50%;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #ec4899;
+  box-shadow: 0 0 15px #ec4899;
+  transform: translateX(-50%);
+}
+.orbit-badge .ring2 {
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  animation: spin 5s linear infinite reverse;
+}
+.orbit-badge .ring2::before {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 50%;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #06b6d4;
+  box-shadow: 0 0 12px #06b6d4;
+  transform: translateX(-50%);
+}
+
+@keyframes glow {
+  0%,100% { box-shadow: 0 0 40px rgba(168,85,247,0.6), 0 0 80px rgba(168,85,247,0.3); }
+  50% { box-shadow: 0 0 60px rgba(168,85,247,0.9), 0 0 120px rgba(168,85,247,0.5); }
+}
+@keyframes fadeScale {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.hero h1 {
+  font-size: clamp(42px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -3px;
+  margin-bottom: 24px;
+  max-width: 900px;
+}
+.hero h1 .grad {
+  background: linear-gradient(90deg, #a855f7, #ec4899, #06b6d4);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+}
+@keyframes shine { to { background-position: 200% center; } }
+
+.hero h1 .word {
+  display: inline-block;
+  animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) backwards;
+}
+.hero h1 .word:nth-child(1) { animation-delay: 0.1s; }
+.hero h1 .word:nth-child(2) { animation-delay: 0.25s; }
+.hero h1 .word:nth-child(3) { animation-delay: 0.4s; }
+.hero h1 .word:nth-child(4) { animation-delay: 0.55s; }
+.hero h1 .word:nth-child(5) { animation-delay: 0.7s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero p {
+  font-size: 19px;
+  color: rgba(255,255,255,0.55);
+  max-width: 560px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  animation: fadeUp 1s 0.9s cubic-bezier(0.16,1,0.3,1) backwards;
+}
+
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 40px;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+  color: #fff;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  animation: fadeUp 1s 1.1s cubic-bezier(0.16,1,0.3,1) backwards;
+  box-shadow: 0 10px 40px rgba(168,85,247,0.4);
+}
+.cta-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #ec4899, #06b6d4);
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: -1;
+}
+.cta-btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 20px 50px rgba(168,85,247,0.6); }
+.cta-btn:hover::before { opacity: 1; }
+
+/* Секция фич */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 80px 0 120px;
+}
+.feature {
+  padding: 40px 32px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+}
+.feature::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg, #a855f7, #ec4899, #06b6d4);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.feature:hover::after { transform: scaleX(1); }
+.feature:hover {
+  transform: translateY(-8px);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(168,85,247,0.3);
+}
+
+.feature-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.2));
+  border: 1px solid rgba(168,85,247,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+.feature h3 { font-size: 22px; margin-bottom: 12px; letter-spacing: -0.5px; }
+.feature p { color: rgba(255,255,255,0.5); font-size: 15px; line-height: 1.6; }
+
+/* Бегущие орбиты в фоне */
+.floating-planet {
+  position: fixed;
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+  filter: blur(1px);
+}
+.planet1 { width: 60px; height: 60px; background: linear-gradient(135deg, #ec4899, #7c3aed); top: 20%; left: 10%; animation: drift 15s ease-in-out infinite; }
+.planet2 { width: 40px; height: 40px; background: linear-gradient(135deg, #06b6d4, #a855f7); top: 60%; right: 12%; animation: drift 20s ease-in-out infinite reverse; }
+.planet3 { width: 25px; height: 25px; background: linear-gradient(135deg, #fbbf24, #ec4899); bottom: 20%; left: 25%; animation: drift 12s ease-in-out infinite; }
+
+@keyframes drift {
+  0%,100% { transform: translate(0,0) rotate(0deg); }
+  50% { transform: translate(40px, -60px) rotate(180deg); }
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 60px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="floating-planet planet1"></div>
+<div class="floating-planet planet2"></div>
+<div class="floating-planet planet3"></div>
+
+<div class="container">
+  <nav>
+    <div class="logo"><div class="logo-circle"></div> COSMOS</div>
+    <ul>
+      <li><a href="#">Проекты</a></li>
+      <li><a href="#">Услуги</a></li>
+      <li><a href="#">Обо мне</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="orbit-badge">
+      <div class="core"></div>
+      <div class="ring"></div>
+      <div class="ring2"></div>
+    </div>
+
+    <h1>
+      <span class="word">Создаю</span>
+      <span class="word grad">цифровые</span>
+      <span class="word">вселенные</span>
+      <br>
+      <span class="word">с</span>
+      <span class="word grad">характером.</span>
+    </h1>
+
+    <p>Frontend-разработчик и UI-дизайнер. Специализируюсь на интерактивных сайтах и анимациях, которые запоминаются.</p>
+
+    <a href="#" class="cta-btn">Начать проект →</a>
+  </section>
+
+  <section class="features">
+    <div class="feature reveal">
+      <div class="feature-icon">✦</div>
+      <h3>Motion Design</h3>
+      <p>Микроанимации, скролл-эффекты и переходы, которые делают опыт живым и приятным.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="feature-icon">◈</div>
+      <h3>Web Development</h3>
+      <p>Быстрые и отзывчивые интерфейсы на современном стеке с чистым и понятным кодом.</p>
+    </div>
+    <div class="feature reveal">
+      <div class="feature-icon">◇</div>
+      <h3>UI/UX Design</h3>
+      <p>Дизайн-системы, прототипы и пользовательские сценарии, основанные на исследованиях.</p>
+    </div>
+  </section>
+
+  <footer>© 2025 Cosmos — Digital Experiences</footer>
+</div>
+
+<script>
+// ===== Частицы на canvas =====
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let W, H;
+let particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.2;
+    this.twinkle = Math.random() * Math.PI * 2;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.twinkle += 0.02;
+    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+  }
+  draw() {
+    const o = this.opacity * (0.6 + 0.4 * Math.sin(this.twinkle));
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${o})`;
+    ctx.fill();
+  }
+}
+
+const NUM = 120;
+for (let i = 0; i < NUM; i++) particles.push(new Particle());
+
+// Соединяющие линии
+function drawConnections() {
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(168,85,247,${(1 - dist/120) * 0.15})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  drawConnections();
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ===== Scroll reveal =====
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ===== Параллакс планет =====
+window.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - 0.5);
+  const y = (e.clientY / window.innerHeight - 0.5);
+  document.querySelector('.planet1').style.transform = `translate(${x*40}px, ${y*40}px)`;
+  document.querySelector('.planet2').style.transform = `translate(${-x*60}px, ${-y*60}px)`;
+  document.querySelector('.planet3').style.transform = `translate(${x*30}px, ${-y*30}px)`;
+});
+</script>
+</body>
+</html>
